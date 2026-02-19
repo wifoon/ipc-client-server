@@ -1,0 +1,16 @@
+services:
+  server:
+    build: .
+    container_name: c-shm-server
+    ipc: "host"
+    stdin_open: true
+    tty: true
+    restart: always
+
+  client:
+    build: .
+    container_name: c-shm-client
+    ipc: host
+    depends_on:
+      - server
+    command: ["./client", "data.txt", "max"]
